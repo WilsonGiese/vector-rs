@@ -63,6 +63,16 @@ impl<T> Mul<Vector2<T>> for Vector2<T> where T: Copy + Mul<T, Output = T> + Add<
     }
 }
 
+/// Compute the DOT PRODUCT of self & other
+impl<T> Mul<T> for Vector2<T> where T: Copy + Mul<T, Output = T> {
+    type Output = Vector2<T>;
+
+    #[inline(always)]
+    fn mul (self, scalar: T) -> Vector2<T> {
+        Vector2::<T> { e0: self.e0 * scalar, e1: self.e1 * scalar }
+    }
+}
+
 /// Subtracts other from self
 impl<T> Sub<Vector2<T>> for Vector2<T> where T: Copy + Sub<T, Output = T> {
     type Output = Vector2<T>;
@@ -119,6 +129,15 @@ fn test_vector2_dot() {
     let s = v1 * v2;
 
     assert_eq!(s, 23);
+}
+
+#[test]
+fn test_vector2_mut_scalar() {
+    let v1 = Vector2::<i32>::new(1, 2);
+    let v2 = v1 * 2;
+
+    assert_eq!(v2.e0, 2);
+    assert_eq!(v2.e1, 4);
 }
 
 #[test]
