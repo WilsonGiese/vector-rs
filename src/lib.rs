@@ -8,8 +8,10 @@ use std::ops::{ Add, Mul, Neg, Sub };
 /// 2D Vector; A Vector with 2 components
 #[derive(Debug, Copy, Clone)]
 pub struct Vector2<T: Copy> {
-    e0: T,
-    e1: T,
+    /// Element at index 0
+    pub e0: T,
+    /// Element at index 1
+    pub e1: T,
 }
 
 impl<T> Vector2<T>  where T: Copy {
@@ -19,19 +21,7 @@ impl<T> Vector2<T>  where T: Copy {
     pub fn new(e0: T, e1: T) -> Vector2<T> {
         Vector2::<T> { e0: e0, e1: e1 }
     }
-
-    /// First entry in the Vector2
-    #[inline(always)]
-    pub fn x(self) -> T {
-        self.e0
-    }
-
-    /// Second entry in the Vector2
-    #[inline(always)]
-    pub fn y(self) -> T {
-        self.e1
-    }
-
+    
     /// Get entry by index
     #[inline(always)]
     pub fn get(self, index: usize) -> T {
@@ -53,7 +43,7 @@ impl<T> Add<Vector2<T>> for Vector2<T> where T: Copy + Add<T, Output = T> {
     }
 }
 
-/// Compute the DOT PRODUCT of self & other
+/// Compute the DOT PRODUCT
 impl<T> Mul<Vector2<T>> for Vector2<T> where T: Copy + Mul<T, Output = T> + Add<T, Output = T> {
     type Output = T;
 
@@ -63,7 +53,7 @@ impl<T> Mul<Vector2<T>> for Vector2<T> where T: Copy + Mul<T, Output = T> + Add<
     }
 }
 
-/// Compute the DOT PRODUCT of self & other
+/// Preform an element-wise multiplication
 impl<T> Mul<T> for Vector2<T> where T: Copy + Mul<T, Output = T> {
     type Output = Vector2<T>;
 
